@@ -13,15 +13,15 @@ function getjson(){
         success: function(data) {
             var json = data;
             var preset = json.presets;
-            console.log(json);
-            //打印preset数组内每个元素的name和note
+            var log = json.uplog;
             var info = "";
+            if (type == "preset")
             for (var i = 0; i < preset.length; i++) {
                 info += "<p>" + preset[i].name + "<br>" + preset[i].note + "</p>";
             }
-            //隐藏class为dot-spinner的元素
+            if (type == "uplog")
+                info = "<textarea style='width:100%;height:200px;' readonly>"+log+"</textarea>";
             document.getElementsByClassName("dot-spinner")[0].style.display = "none";
-            //打印信息到页面
             document.getElementById("info").innerHTML = info;
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -29,6 +29,13 @@ function getjson(){
         }
     });
 }
+function getQueryParamValue(name) {
+    const searchParams = new URLSearchParams(window.location.search);
+    return searchParams.get(name);
+}
+
+const type = decodeURIComponent(getQueryParamValue("type")); 
 window.onload = function() {
     getjson();
+    
 };
