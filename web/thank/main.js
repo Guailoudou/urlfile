@@ -15,7 +15,7 @@ function getjson(){
         success: function(data) {
             var json = data;
             var thank = json.list;
-            var info = "<table><thead><tr><th>用户名</th><th>金额</th></tr></thead><tbody>";
+            var info = "<table border='1'><thead><tr><th>用户名</th><th>金额</th></tr></thead><tbody>";
             for (var i = 0; i < thank.length; i++) {
                 info += "<tr><td>" + thank[i].name + "</td><td>" + thank[i].num + "</td></tr>";
             }
