@@ -3,9 +3,9 @@ function getjson(){
     //显示class为dot-spinner的元素
     document.getElementsByClassName("dot-spinner")[0].style.display = "block";
     document.getElementById("info").innerHTML = "正在获取数据...";
-    var url = "https://file.gldhn.top/file/json/thank.json";
+    //var url = "https://file.gldhn.top/file/json/thank.json";
     
-    //var url = "thank.json";
+    var url = "thank.json";
     $.ajax({
         url: url,
         type: "GET",
@@ -15,10 +15,11 @@ function getjson(){
         success: function(data) {
             var json = data;
             var thank = json.list;
-            var info = "<tr><th>用户名</th><th>金额</th></tr>";
+            var info = "<table><thead><tr><th>用户名</th><th>金额</th></tr></thead><tbody>";
             for (var i = 0; i < thank.length; i++) {
                 info += "<tr><td>" + thank[i].name + "</td><td>" + thank[i].num + "</td></tr>";
             }
+            info += "</tbody></table>";
             document.getElementsByClassName("dot-spinner")[0].style.display = "none";
             document.getElementById("info").innerHTML = info;
         },
