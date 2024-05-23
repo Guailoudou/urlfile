@@ -57,6 +57,11 @@
                     "Sport": 3389,
                     "Cport": 3388,
                     "type": "tcp"
+                },
+                {
+                    "Sport": 3389,
+                    "Cport": 3388,
+                    "type": "udp"
                 }
             ]
         }
