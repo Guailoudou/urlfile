@@ -57,6 +57,11 @@
                     "Sport": 26900,
                     "Cport": 26900,
                     "type": "tcp"
+                },
+                {
+                    "Sport": 26900,
+                    "Cport": 26900,
+                    "type": "udp"
                 }
             ]
         },
