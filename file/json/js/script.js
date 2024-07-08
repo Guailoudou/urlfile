@@ -1,69 +1,35 @@
+//全局变量
+var config; //根列表
+var presets; //预设根（congig.presets）
+var sha = ''; //文件sha
+var selectedName = ""; //选中预设的名称
+//鉴权设置
 const passwordHash = "77901f54e29e85a707a99963fc0244dc";
 const timeLimit = 3600000 * 24 * 7;
 const maxAttempts = 3;
-var config;
-var presets;
+//git参数
+var git_url = 'https://api.github.com/repos/Guailoudou/urlfile/contents/file/json/preset.json';
+const git_message = '文件更新';
+const git_name = 'Guailoudou';
+const git_email = 'guailoudou@outlook.com';
+
 if(checkPassword()){
     login();
     getFileSha();
 }
 else document.body.innerHTML = "<h1>访问被拒绝</h1>";
 
+   // 初始化
 async function login() {
-    try {
-        const response = await fetch('https://file.gldhn.top/file/json/preset.json');
-        if (!response.ok) throw new Error('Failed to load config file.');
-        config = await response.json();
-        presets = config.presets;
-        // 初始化
-        generatePresetSelector();
-        selectedName = presets[0].name;
+    config = await getfile('https://file.gldhn.top/file/json/preset.json')
+    presets = config.presets;
+ 
+    generatePresetSelector();
+    selectedName = presets[0].name;
 
-        showPresetConfig(document.getElementById('preset-selector').value);
-        updateConfig()
-    } catch (error) {
-        console.error(`Error loading config: ${error.message}`);
-    }
-}
-function checkPassword() {
-    if (localStorage.getItem('passwordVerified') === 'true') {
-        const lastAccessTime = localStorage.getItem('lastAccessTime');
-        if (Date.now() - parseInt(lastAccessTime) < timeLimit) {
-            console.log("密码已验证，无需再次输入");
-            return true;
-        } else {
-            localStorage.removeItem('passwordVerified');
-            localStorage.removeItem('lastAccessTime');
-            localStorage.removeItem('gh_token');
-        }
-    }
-
-    let attempts = parseInt(localStorage.getItem('attempts')) || 0;
-    let lastAttemptTime = localStorage.getItem('lastAttemptTime');
-
-    if (lastAttemptTime && Date.now() - parseInt(lastAttemptTime) < timeLimit && attempts >= maxAttempts) {
-        console.log("尝试次数过多，1小时内无法访问");
-        document.body.innerHTML = "<h1>尝试次数过多，1小时内无法访问</h1>";
-        return false;
-    }
-
-    let input = prompt("请输入密码：");
-    let inputHash = CryptoJS.MD5(input).toString();
-    if (inputHash === passwordHash) {
-        localStorage.setItem('passwordVerified', 'true');
-        localStorage.setItem('lastAccessTime', Date.now());
-        localStorage.setItem('gh_token', input);
-        localStorage.removeItem('attempts');
-        localStorage.removeItem('lastAttemptTime');
-        console.log("密码正确，页面加载成功");
-        return true;
-    } else {
-        attempts++;
-        localStorage.setItem('attempts', attempts);
-        localStorage.setItem('lastAttemptTime', Date.now());
-        alert("密码错误，剩余尝试次数：" + (maxAttempts - attempts));
-        checkPassword();
-    }
+    showPresetConfig(document.getElementById('preset-selector').value);
+    updateConfig()
+ 
 }
 
 
@@ -94,6 +60,7 @@ function updateConfig() {
     ophash.value = config.ophash;
     uplog.value = config.uplog;
 }
+//保存
 document.getElementById('updata-form').addEventListener('submit', function (event) {
     event.preventDefault(); // 阻止表单默认提交行为
     config.version = document.getElementById('version-put').value;
@@ -161,14 +128,14 @@ function showPresetConfig(name) {
         });
     }
 }
-var selectedName = "";
+
 // 监听预设选择事件
 document.getElementById('preset-selector').addEventListener('change', function () {
     selectedName = this.value;
     showPresetConfig(selectedName);
 });
 
-
+//新建预设
 document.getElementById('new-preset-form').addEventListener('submit', function (event) {
     event.preventDefault(); // 阻止表单默认提交行为
     const name = document.getElementById('preset-name').value.trim();
@@ -184,6 +151,7 @@ document.getElementById('new-preset-form').addEventListener('submit', function (
 
     presets.push(newPreset);
     generatePresetSelector();
+    selectedName = name;
     showPresetConfig(name);
     document.getElementById('preset-name').value = ''; // 清空输入框
 });
@@ -232,69 +200,19 @@ document.getElementById('save-btn').addEventListener('click', function () {
     showPresetConfig(selectedName);
     alert('预设已保存');
 });
-// 导出预设为JSON文件
-document.getElementById('export-json').addEventListener('click', function () {
-    const dataStr = JSON.stringify(config);
-    const dataUri = 'data:text/json;charset=utf-8,' + encodeURIComponent(dataStr);
-    const downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href", dataUri);
-    downloadAnchorNode.setAttribute("download", "presets.json");
-    document.body.appendChild(downloadAnchorNode); // required for firefox browser
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
-});
-var config_s;
-async function getFileSha() {
-    var url = 'https://api.github.com/repos/Guailoudou/urlfile/contents/file/json/preset.json';
-    try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error('Failed to load config file.');
-        config_s = await response.json();
-        sha = config_s.sha;
-        // 初始化
+//删除预设
+document.getElementById('delete-btn').addEventListener('click', function () {
+    const index = presets.findIndex(p => p.name === selectedName);
+    if (index !== -1) {
+        presets.splice(index, 1);
         generatePresetSelector();
-        selectedName = presets[0].name;
-
-        showPresetConfig(document.getElementById('preset-selector').value);
-        updateConfig()
-    } catch (error) {
-        console.error(`Error loading config: ${error.message}`);
+        selectedName = presets[0].name; //加载第一个预设
+        showPresetConfig(selectedName);
+        alert('预设已删除');
     }
-  }
-//提交到GitHub
-var sha = '';
-document.getElementById('submit-github').addEventListener('click', function () {
-    var encoder = new TextEncoder();
-    fetch('https://api.github.com/repos/Guailoudou/urlfile/contents/file/json/preset.json', {
-        method: 'PUT',
-        headers: {
-            'Accept': 'application/vnd.github.v3+json',
-            'Authorization': 'token '+ localStorage.getItem('gh_token')
-        },
-        body: JSON.stringify({
-            'message': '更新内容',
-            'committer': {
-            'name': 'Guailoudou',
-            'email': 'Guailoudou@outlook.com'
-            },
-            'content': btoa(String.fromCharCode.apply(null, encoder.encode(JSON.stringify(config)))),
-            'sha': sha
-        })
-    })
-    .then(response => {
-        if (response.ok){
-            alert('提交上传成功');
-            response.json();
-            getFileSha();
-        }
-        
-    }
-    )
-    .then(data => {
-        console.log(data);
-    })
-    .catch(error => {
-        console.error(error);
-        alert('提交上传失败');
-    });
 });
+// 导出JSON文件
+document.getElementById('export-json').addEventListener('click', function () {
+    downloadNode(config, 'presets.json');
+});
+
