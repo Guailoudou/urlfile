@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>赞助编辑器</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>赞助编辑器</h1>
+        <div class="form-group">
+            <button onclick="localStorage.clear();location.reload();">退出登录</button>
+            <button onclick="window.location.href='index.html';">预设</button>
+            <button id="add-btn">添加</button>
+            <button id="save-btn">保存</button>
+        </div>
+        <div id="Newthank-list">
+            <!-- 配置详情将由JavaScript动态生成 -->
+        </div>
+        <hr>
+        <div id="thank-list">
+            <!-- 配置详情将由JavaScript动态生成 -->
+        </div>
+        <!-- 导出按钮 -->
+        <hr>
+        <button id="export-json">导出预设为JSON</button>
+        <button id="submit-github">上传github</button>
+    </div>
+    
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/script_t.js"></script>
+</html>

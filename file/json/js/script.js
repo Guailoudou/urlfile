@@ -1,14 +1,10 @@
 //全局变量
 var config; //根列表
 var presets; //预设根（congig.presets）
-var sha = ''; //文件sha
 var selectedName = ""; //选中预设的名称
-//鉴权设置
-const passwordHash = "77901f54e29e85a707a99963fc0244dc";
-const timeLimit = 3600000 * 24 * 7;
-const maxAttempts = 3;
+
 //git参数
-var git_url = 'https://api.github.com/repos/Guailoudou/urlfile/contents/file/json/preset.json';
+const git_url = 'https://api.github.com/repos/Guailoudou/urlfile/contents/file/json/preset.json';
 const git_message = '文件更新';
 const git_name = 'Guailoudou';
 const git_email = 'guailoudou@outlook.com';
@@ -211,8 +207,5 @@ document.getElementById('delete-btn').addEventListener('click', function () {
         alert('预设已删除');
     }
 });
-// 导出JSON文件
-document.getElementById('export-json').addEventListener('click', function () {
-    downloadNode(config, 'presets.json');
-});
+
 

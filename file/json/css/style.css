@@ -27,3 +27,10 @@ button {
     border: none;
     cursor: pointer;
 }
+.thankList{
+    display: flex;
+    align-items: center;
+}
+.thankList label{
+    width: 6em;
+}

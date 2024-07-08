@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,10 @@
 <body>
     <div class="container">
         <h1>预设编辑器</h1>
-        <button onclick="localStorage.clear();location.reload();">退出登录</button>
+        <div class="form-group">
+            <button onclick="localStorage.clear();location.reload();">退出登录</button>
+            <button onclick="window.location.href='thank.html';">赞助</button>
+        </div>
         <hr>
         <div id="tunnel-configs">
             <!-- 隧道配置将动态生成 -->
@@ -62,5 +65,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 <script src="js/common.js"></script>
-<!-- <script src="js/script.js"></script> -->
+<script src="js/script.js"></script>
 </html>

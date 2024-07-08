@@ -1,3 +1,8 @@
+//鉴权设置
+const passwordHash = "77901f54e29e85a707a99963fc0244dc";
+const timeLimit = 3600000 * 24 * 7;
+const maxAttempts = 3;
+var sha = ''; //文件sha
 //鉴权函数
 function checkPassword() {
     if (localStorage.getItem('passwordVerified') === 'true') {
@@ -50,7 +55,10 @@ function downloadNode(Node,name){
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
 }
-
+// 导出JSON文件
+document.getElementById('export-json').addEventListener('click', function () {
+    downloadNode(config, 'presets.json');
+});
 //读取文件
 async function getfile(url){
     try {
@@ -63,7 +71,8 @@ async function getfile(url){
 }
 //获取文件sha值（上传GitHub需要的）
 async function getFileSha() {
-    sha = getfile(git_url).sha;
+    const file = await getfile(git_url);
+    sha = file.sha;
 }
 //提交到GitHub
 document.getElementById('submit-github').addEventListener('click', function () {
@@ -100,18 +109,4 @@ document.getElementById('submit-github').addEventListener('click', function () {
         console.error(error);
         alert('提交上传失败');
     });
-});
-
-function loadScript(url) {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = url;
-    // 将script元素添加到head中
-    document.getElementsByTagName("head")[0].appendChild(script);
-}
-
-//等待页面加载完毕后运行
-
-document.addEventListener('DOMContentLoaded', function () {
-    loadScript('js/script.js')
 });
