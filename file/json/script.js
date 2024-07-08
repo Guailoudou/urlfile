@@ -1,4 +1,4 @@
-const passwordHash = "dd4babb0adfda5eb68362e90e19b20db";
+const passwordHash = "77901f54e29e85a707a99963fc0244dc";
 const timeLimit = 3600000 * 24 * 7;
 const maxAttempts = 3;
 var config;
