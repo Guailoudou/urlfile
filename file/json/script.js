@@ -103,6 +103,7 @@ document.getElementById('updata-form').addEventListener('submit', function (even
     config.ophash = document.getElementById('ophash-put').value;
     config.uplog = document.getElementById('uplog-id').value;
     updateConfig();
+    alert('已保存');
 });
 // 显示预设配置
 function showPresetConfig(name) {
@@ -227,8 +228,9 @@ document.getElementById('save-btn').addEventListener('click', function () {
             })
         })
     }
-    //alert('预设已保存');
+   
     showPresetConfig(selectedName);
+    alert('预设已保存');
 });
 // 导出预设为JSON文件
 document.getElementById('export-json').addEventListener('click', function () {
@@ -283,6 +285,7 @@ document.getElementById('submit-github').addEventListener('click', function () {
         if (response.ok){
             alert('提交上传成功');
             response.json();
+            getFileSha();
         }
         
     }
