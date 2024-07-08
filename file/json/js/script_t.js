@@ -14,7 +14,7 @@ async function login(){
     config = await getfile('https://file.gldhn.top/file/json/thank.json');
     showlist();
 }
-
+//渲染列表数据
 function showlist(){
     const detailsContainer = document.getElementById('thank-list');
     detailsContainer.innerHTML = '';
@@ -44,7 +44,7 @@ function showlist(){
         detailsContainer.appendChild(hr);
     })
 }
-
+//添加
 document.getElementById('add-btn').addEventListener('click', function () {
     config.list.unshift({
         name: '张三',
@@ -53,7 +53,7 @@ document.getElementById('add-btn').addEventListener('click', function () {
     showlist();
 });
 
-
+//保存
 document.getElementById('save-btn').addEventListener('click', function () {
 
         //删除以前的
