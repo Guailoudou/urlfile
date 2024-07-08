@@ -76,6 +76,7 @@ async function getFileSha() {
 }
 //提交到GitHub
 document.getElementById('submit-github').addEventListener('click', function () {
+    if(!confirm('确认要提交? 防误触'))return;
     var encoder = new TextEncoder();
     fetch(git_url, {
         method: 'PUT',
