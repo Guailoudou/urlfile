@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>预设编辑器</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 1em;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 0.5em;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 0.5em 1em;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>预设编辑器</h1>
+
+        <div id="tunnel-configs">
+            <!-- 隧道配置将动态生成 -->
+        </div>
+        <!-- HTML 部分 -->
+        <select id="preset-selector">
+            <!-- 选项将由JavaScript动态生成 -->
+        </select>
+
+        <div id="preset-details">
+            <!-- 配置详情将由JavaScript动态生成 -->
+        </div>
+
+        <button id="addTunnelToPreset-btn">新建端口</button>
+
+        <form id="new-preset-form">
+            <label for="preset-name">预设名称:</label>
+            <input type="text" id="preset-name" required/>
+            <button type="submit">创建预设</button>
+        </form>
+        <br>
+        <div class="form-group">
+            <button id="save-btn">保存</button>
+        </div>
+        <form id="updata-form">
+            <label for="version-put">协议版本号:</label>
+            <input type="text" id="version-put" required/>
+            <label for="upurl-put">更新包url:</label>
+            <input type="text" id="upurl-put" required/>
+            <label for="uphash-put">更新包hash:</label>
+            <input type="text" id="uphash-put" required/>
+            <label for="opurl-put">openp2p-url:</label>
+            <input type="text" id="opurl-put" required/>
+            <label for="ophash-put">openp2p-hash:</label>
+            <input type="text" id="ophash-put" required/>
+            <label for="uplog-id">更新日志:</label>
+            <textarea name="uplog-name" id="uplog-id" style="height: 300px;"></textarea>
+            <button type="submit">保存</button>
+        </form>
+        <!-- 导出按钮 -->
+         <br>
+        <button id="export-json">导出预设为JSON</button>
+        <button id="submit-github">上传github</button>
+    </div>
+    
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script src="script.js"></script>
+</html>
