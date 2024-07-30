@@ -44,8 +44,21 @@ function showlist(){
         detailsContainer.appendChild(hr);
     })
 }
-//添加
+//添加(先保存)
 document.getElementById('add-btn').addEventListener('click', function () {
+    //删除以前的
+    config.list.length = 0;
+    //添加新的
+    document.querySelectorAll('.thankList').forEach(p => {
+        const inputs = p.querySelectorAll('input[type="text"]');
+        const idInput = inputs[0];
+        const numInput = inputs[1];
+
+        config.list.push({
+            name: idInput.value,
+            num: numInput.value
+        })
+    });
     config.list.unshift({
         name: '张三',
         num: '0'
@@ -68,7 +81,7 @@ document.getElementById('save-btn').addEventListener('click', function () {
                 name: idInput.value,
                 num: numInput.value
             })
-        })
+        });
     showlist();
-    alert('预设已保存');
+    alert('赞助列表已保存');
 });
