@@ -1,6 +1,6 @@
 //鉴权设置
 const passwordHash = "77901f54e29e85a707a99963fc0244dc";
-const timeLimit = 3600000 * 24 * 7;
+const timeLimit = 3600000 * 24 * 30;
 const maxAttempts = 3;
 var sha = ''; //文件sha
 //鉴权函数
