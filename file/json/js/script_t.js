@@ -64,7 +64,7 @@ document.getElementById('add-btn').addEventListener('click', function () {
         const inputs = p.querySelectorAll('input[type="text"]');
         const idInput = inputs[0];
         const numInput = inputs[1];
-        const platformInput = inputs[2];
+        const platformInput = inputs[2]; //平台
 
         config.list.push({
             name: idInput.value,
