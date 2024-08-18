@@ -33,12 +33,23 @@ function showlist(){
         const numInput = document.createElement('input');
         numInput.type = 'text';
         numInput.value = p.num;
+
+        const platformLabel = document.createElement('label');
+        platformLabel.textContent = '平台: ';
+        const platformInput = document.createElement('input');
+        platformInput.type = 'text';
+        if(p.platform != null)
+            platformInput.value = p.platform;
+        else
+            platformInput.value = '';
         
         const hr = document.createElement('hr');
         thankDiv.appendChild(idLabel);
         thankDiv.appendChild(idInput);
         thankDiv.appendChild(numLabel);
         thankDiv.appendChild(numInput);
+        thankDiv.appendChild(platformLabel);
+        thankDiv.appendChild(platformInput);
 
         detailsContainer.appendChild(thankDiv);
         detailsContainer.appendChild(hr);
@@ -53,15 +64,18 @@ document.getElementById('add-btn').addEventListener('click', function () {
         const inputs = p.querySelectorAll('input[type="text"]');
         const idInput = inputs[0];
         const numInput = inputs[1];
+        const platformInput = inputs[2];
 
         config.list.push({
             name: idInput.value,
-            num: numInput.value
+            num: numInput.value,
+            platform: platformInput.value
         })
     });
     config.list.unshift({
         name: '张三',
-        num: '0'
+        num: '0',
+        platform: ''
     });
     showlist();
 });
@@ -76,10 +90,12 @@ document.getElementById('save-btn').addEventListener('click', function () {
             const inputs = p.querySelectorAll('input[type="text"]');
             const idInput = inputs[0];
             const numInput = inputs[1];
+            const platformInput = inputs[2];
 
             config.list.push({
                 name: idInput.value,
-                num: numInput.value
+                num: numInput.value,
+                platform: platformInput.value
             })
         });
     showlist();
