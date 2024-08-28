@@ -45,21 +45,21 @@ dmopl(){
     if command -v curl >/dev/null; then
         curl -k -o openp2p.tar.gz "$url"
     else
-        wget --no-check-certificate -O openp2p.tar.gz "$url"
+        wget --no-check-certificate -O /opt/opl/openp2p.tar.gz "$url"
     fi
     if [ $? -ne 0 ]; then
         echo "download error $?"
         exit 9
     fi
     echo "download ok"
-    tar -xzvf openp2p.tar.gz
-    chmod +x openp2p
+    tar -xzvf /opt/opl/openp2p.tar.gz
+    chmod +x /opt/opl/openp2p
     echo "install start"
 }
 
 strToken="11602319472897248650"
-filename="node.txt"
-oplname="openp2p"
+filename="/opt/opl/node.txt"
+oplname="/opt/opl/openp2p"
 if [ ! -f "$oplname" ]; then
   dmopl
 fi
@@ -68,11 +68,9 @@ if [ ! -f "$filename" ]; then
   touch "$filename"
   node=$(od -vAn -N3 -tux1 /dev/urandom | tr -cd '0-9a-f')
   echo $node > "$filename"
-  echo "你的uid为: $node"
 else
   node=$(cat "$filename")
-  echo "你的uid为: $node"
 fi
-echo 主程序将在2s后运行，暂只支持被连接！
+echo **********\n主程序将在2s后运行，暂只支持被连接！\n关闭请使用 sudo killall -9 openp2p \n 目前仅只是勉强可用\n 你的uid为: $node \n**********
 sleep 2
-nohup ./openp2p -token $strToken -node $node > op.log &
+nohup /opt/opl/openp2p -token $strToken -node $node >/dev/null 2>&1 & 
