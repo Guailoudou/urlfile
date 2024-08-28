@@ -45,14 +45,15 @@ dmopl(){
     if command -v curl >/dev/null; then
         curl -k -o openp2p.tar.gz "$url"
     else
-        wget --no-check-certificate -O /opt/opl/openp2p.tar.gz "$url"
+        wget --no-check-certificate -O openp2p.tar.gz "$url"
+        mv openp2p.tar.gz /opt/opl
     fi
     if [ $? -ne 0 ]; then
         echo "download error $?"
         exit 9
     fi
     echo "download ok"
-    tar -xzvf /opt/opl/openp2p.tar.gz
+    tar -xzvf /opt/opl/openp2p.tar.gz -C /opt/opl
     chmod +x /opt/opl/openp2p
     echo "install start"
 }
@@ -73,11 +74,11 @@ if [ ! -f "$filename" ]; then
 else
   node=$(cat "$filename")
 fi
-echo ***********************************
+echo -----------------------------------
 echo 主程序将在2s后运行，暂只支持被连接！
 echo 关闭请使用 sudo killall -9 openp2p 
 echo 目前仅只是勉强可用
 echo 你的uid为: $node 
-echo ***********************************
+echo -----------------------------------
 sleep 2
 nohup /opt/opl/openp2p -token $strToken -node $node >/dev/null 2>&1 & 
