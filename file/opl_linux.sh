@@ -65,7 +65,6 @@ if [ ! -f "$oplname" ]; then
 fi
 
 if [ ! -f "$filename" ]; then
-  # 如果文件不存在，则创建它
   touch "$filename"
   node=$(od -vAn -N3 -tux1 /dev/urandom | tr -cd '0-9a-f')
   echo $node > "$filename"
@@ -76,4 +75,4 @@ else
 fi
 echo 主程序将在2s后运行，暂只支持被连接！
 sleep 2
-./openp2p -token $strToken -node $node
+nohup ./openp2p -token $strToken -node $node > op.log &
