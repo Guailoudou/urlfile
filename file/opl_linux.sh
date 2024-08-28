@@ -56,7 +56,9 @@ dmopl(){
     chmod +x /opt/opl/openp2p
     echo "install start"
 }
-
+if [ ! -d "/opt/opl" ]; then
+  mkdir /opt/opl
+fi
 strToken="11602319472897248650"
 filename="/opt/opl/node.txt"
 oplname="/opt/opl/openp2p"
