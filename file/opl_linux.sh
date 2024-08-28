@@ -73,6 +73,11 @@ if [ ! -f "$filename" ]; then
 else
   node=$(cat "$filename")
 fi
-echo **********\n主程序将在2s后运行，暂只支持被连接！\n关闭请使用 sudo killall -9 openp2p \n 目前仅只是勉强可用\n 你的uid为: $node \n**********
+echo ***********************************
+echo 主程序将在2s后运行，暂只支持被连接！
+echo 关闭请使用 sudo killall -9 openp2p 
+echo 目前仅只是勉强可用
+echo 你的uid为: $node 
+echo ***********************************
 sleep 2
 nohup /opt/opl/openp2p -token $strToken -node $node >/dev/null 2>&1 & 
