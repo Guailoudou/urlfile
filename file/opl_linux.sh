@@ -44,6 +44,7 @@ dmopl(){
 
     if command -v curl >/dev/null; then
         curl -k -o openp2p.tar.gz "$url"
+        mv openp2p.tar.gz /opt/opl
     else
         wget --no-check-certificate -O openp2p.tar.gz "$url"
         mv openp2p.tar.gz /opt/opl
