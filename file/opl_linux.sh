@@ -44,19 +44,19 @@ dmopl(){
 
     if command -v curl >/dev/null; then
         curl -k -o openp2p.tar.gz "$url"
-        mv openp2p.tar.gz /opt/opl
     else
         wget --no-check-certificate -O openp2p.tar.gz "$url"
-        mv openp2p.tar.gz /opt/opl
     fi
     if [ $? -ne 0 ]; then
         echo "download error $?"
         exit 9
+    else
+        mv openp2p.tar.gz /opt/opl
     fi
     echo "download ok"
     tar -xzvf /opt/opl/openp2p.tar.gz -C /opt/opl
     chmod +x /opt/opl/openp2p
-    echo "install start"
+    echo "start"
 }
 if [ ! -d "/opt/opl" ]; then
   mkdir /opt/opl
