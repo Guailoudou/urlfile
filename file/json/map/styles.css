@@ -1,0 +1,42 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* 卡片之间的间距 */
+}
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: calc(33.333% - 40px); /* 每行显示三个卡片，并留出间距 */
+    min-width: 300px; /* 最小宽度，确保在较小屏幕上也能良好显示 */
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+.card p {
+    margin: 10px 0;
+}
+
+.card ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.card li {
+    margin: 5px 0;
+}
