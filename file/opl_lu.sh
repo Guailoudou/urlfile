@@ -30,17 +30,17 @@ dmopl(){
     echo "download $url start"
 
     if command -v curl >/dev/null; then
-        curl -k -o opl.tar.gz "$url"
+        curl -k -o ./opl.tar.gz "$url"
     else
-        wget --no-check-certificate -O opl.tar.gz "$url"
+        wget --no-check-certificate -O ./opl.tar.gz "$url"
     fi
     if [ $? -ne 0 ]; then
         echo "download error $?"
         exit 9
     fi
     echo "download ok"
-    tar -xzvf opl.tar.gz
-    chmod +x opl-console-$sysType
+    tar -xzvf ./opl.tar.gz
+    chmod +x ./opl-console-$sysType
 }
 
 sysType=""
