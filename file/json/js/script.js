@@ -17,6 +17,15 @@ else document.body.innerHTML = "<h1>访问被拒绝</h1>";
 
    // 初始化
 async function login() {
+    // fetch('https://file.gldhn.top/file/json/preset.json')
+    //     .then(response => response.text())  // 获取原始文本
+    //     .then(text => parseBigIntJSON(text))
+    //     .then(data => {
+    //         // 继续处理数据
+    //         config = data;
+    //         console.log(config);  // 确保正确显示
+    //     })
+    //     .catch(error => console.error('Error fetching or parsing JSON:', error));
     config = await getfile('https://file.gldhn.top/file/json/preset.json')
     presets = config.presets;
  
@@ -24,10 +33,50 @@ async function login() {
     selectedName = presets[0].name;
 
     showPresetConfig(document.getElementById('preset-selector').value);
+
     updateConfig()
- 
+    suserver()
 }
 
+function suserver(){
+    // 获取用于显示服务器信息的div元素
+    const serversDiv = document.getElementById('servers');
+
+    // 创建表格元素
+    const table = document.createElement('table');
+    table.style.borderCollapse = 'collapse'; // 设置表格边框合并
+
+    // 添加表头
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    ['服务器名称', '主机地址', '令牌'].forEach(text => {
+        const th = document.createElement('th');
+        th.textContent = text;
+        th.style.border = '1px solid black';
+        th.style.padding = '5px';
+        headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    // 添加内容行
+    const tbody = document.createElement('tbody');
+    config.servers.forEach(server => {
+        const row = document.createElement('tr');
+        [server.ServerName, server.ServerHost, server.Token].forEach(content => {
+            const td = document.createElement('td');
+            td.textContent = content;
+            td.style.border = '1px solid black';
+            td.style.padding = '5px';
+            row.appendChild(td);
+        });
+        tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+
+    // 将表格添加到页面中的指定位置
+    serversDiv.appendChild(table);
+}
 
 // 生成预设下拉菜单
 function generatePresetSelector() {

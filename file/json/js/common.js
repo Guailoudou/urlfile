@@ -27,6 +27,9 @@ function checkPassword() {
     }
 
     let input = prompt("请输入密码：");
+    if (!input) {
+        return false;
+    }
     let inputHash = CryptoJS.MD5(input).toString();
     if (inputHash === passwordHash) {
         localStorage.setItem('passwordVerified', 'true');
