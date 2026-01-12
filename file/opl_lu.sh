@@ -45,7 +45,7 @@ dmopl(){
 
 sysType=""
 getfilename
-echo "请注意，如果需要更新/重新下载主程序，请手动删除 opl-console-$sysType 文件"
+echo "请注意，如果需要更新/重新下载主程序，请手动删除 opl-console-$sysType 文件 :rm opl-console-$sysType"
 echo "程序将在2s后运行！"
 sleep 2
 if [ ! -f "opl-console-$sysType" ]; then
